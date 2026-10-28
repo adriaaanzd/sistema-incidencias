@@ -13,6 +13,9 @@ const COLORES_ESTADO = ['pendiente', 'proceso', 'resuelta'].map((e) => `--estado
 
 const graficos = { prioridad: null, estado: null };
 
+// Respeta la preferencia del sistema "reducir movimiento": los gráficos aparecen sin animar.
+if (matchMedia('(prefers-reduced-motion: reduce)').matches) Chart.defaults.animation = false;
+
 /** Cuenta cuántas incidencias hay de cada valor del catálogo, en el orden del catálogo. */
 function contarPor(incidencias, campo, catalogo) {
   return catalogo.map((valor) => incidencias.filter((i) => i[campo] === valor).length);

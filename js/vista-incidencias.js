@@ -57,17 +57,30 @@ function crearSelectorEstado(incidencia) {
   return select;
 }
 
+// Las columnas ID, Responsable y Registro solo se ven desde 1400 px (y Prioridad desde 768 px).
+// En pantallas menores esos datos se repiten dentro de la celda "Incidencia", así nada se pierde y la tabla cabe.
+function crearCeldaIncidencia(incidencia) {
+  return crearElemento('td', { clase: 'celda-titulo' },
+    crearElemento('div', { clase: 'celda-id-compacta d-xxl-none', texto: incidencia.id }),
+    crearElemento('div', { clase: 'fw-medium', texto: incidencia.titulo }),
+    crearElemento('div', { clase: 'small text-secondary' },
+      incidencia.categoria,
+      crearElemento('span', {
+        clase: 'd-xxl-none',
+        texto: ` · ${incidencia.responsable} · ${formatearFecha(incidencia.fechaRegistro)}`,
+      })),
+    crearElemento('div', { clase: 'd-md-none mt-1' }, crearBadgePrioridad(incidencia.prioridad)));
+}
+
 function crearFila(incidencia) {
   return crearElemento('tr', {},
-    crearElemento('td', { clase: 'text-nowrap fw-medium celda-id', texto: incidencia.id }),
-    crearElemento('td', { clase: 'celda-titulo' },
-      crearElemento('div', { clase: 'fw-medium', texto: incidencia.titulo }),
-      crearElemento('div', { clase: 'small text-secondary', texto: incidencia.categoria })),
-    crearElemento('td', {}, crearBadgePrioridad(incidencia.prioridad)),
+    crearElemento('td', { clase: 'text-nowrap fw-medium celda-id d-none d-xxl-table-cell', texto: incidencia.id }),
+    crearCeldaIncidencia(incidencia),
+    crearElemento('td', { clase: 'd-none d-md-table-cell' }, crearBadgePrioridad(incidencia.prioridad)),
     crearElemento('td', {}, crearSelectorEstado(incidencia)),
-    crearElemento('td', { texto: incidencia.responsable }),
+    crearElemento('td', { clase: 'd-none d-xxl-table-cell', texto: incidencia.responsable }),
     crearElemento('td', {
-      clase: 'text-nowrap',
+      clase: 'text-nowrap d-none d-xxl-table-cell',
       texto: formatearFecha(incidencia.fechaRegistro),
       atributos: { title: `Registrada: ${formatearFechaHora(incidencia.fechaRegistro)}` },
     }),
@@ -77,9 +90,19 @@ function crearFila(incidencia) {
         crearBotonAccion('eliminar', 'trash', 'btn-outline-danger', `Eliminar ${incidencia.id}`, incidencia.id))));
 }
 
-function filaMensaje(texto) {
-  return crearElemento('tr', {},
-    crearElemento('td', { clase: 'text-center text-secondary py-4', texto, atributos: { colspan: String(COLUMNAS) } }));
+/** Fila de estado vacío: icono, mensaje y, si se indica, un botón con la acción que resuelve la situación. */
+function filaMensaje(texto, icono, accion) {
+  const contenido = crearElemento('div', { clase: 'estado-vacio' },
+    crearIcono(icono, 'estado-vacio-icono'),
+    crearElemento('p', { clase: 'mb-0', texto }));
+  if (accion) {
+    contenido.append(crearElemento('button', {
+      clase: 'btn btn-sm btn-outline-primary',
+      texto: accion.texto,
+      atributos: { type: 'button', 'data-accion': accion.accion },
+    }));
+  }
+  return crearElemento('tr', {}, crearElemento('td', { atributos: { colspan: String(COLUMNAS) } }, contenido));
 }
 
 const hayFiltros = () => Object.values(filtros).some((valor) => valor.trim() !== '');
@@ -90,11 +113,13 @@ function pintarTabla() {
   resumenFiltros.textContent = hayFiltros() ? `Mostrando ${visibles.length} de ${todas.length}.` : '';
 
   if (todas.length === 0) {
-    tabla.replaceChildren(filaMensaje('Aún no hay incidencias registradas.'));
+    tabla.replaceChildren(filaMensaje('Aún no hay incidencias registradas.', 'inbox',
+      { texto: 'Registrar la primera incidencia', accion: 'nueva' }));
     return;
   }
   if (visibles.length === 0) {
-    tabla.replaceChildren(filaMensaje('No hay incidencias que coincidan con la búsqueda y los filtros.'));
+    tabla.replaceChildren(filaMensaje('No hay incidencias que coincidan con la búsqueda y los filtros.', 'search',
+      { texto: 'Limpiar filtros', accion: 'limpiar-filtros' }));
     return;
   }
   const ordenadas = visibles.sort((a, b) => b.fechaRegistro.localeCompare(a.fechaRegistro));
@@ -280,6 +305,9 @@ modalElemento.addEventListener('shown.bs.modal', () => form.elements.titulo.focu
 tabla.addEventListener('click', (e) => {
   const boton = e.target.closest('button[data-accion]');
   if (!boton) return;
-  if (boton.dataset.accion === 'editar') editar(boton.dataset.id);
-  else if (boton.dataset.accion === 'eliminar') eliminar(boton.dataset.id);
+  const { accion, id } = boton.dataset;
+  if (accion === 'editar') editar(id);
+  else if (accion === 'eliminar') eliminar(id);
+  else if (accion === 'limpiar-filtros') limpiarFiltros();
+  else if (accion === 'nueva') abrirFormulario();
 });

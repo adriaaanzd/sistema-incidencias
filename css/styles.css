@@ -7,7 +7,8 @@
   --color-superficie: #ffffff;
   --color-borde: #e2e8f0;
   --color-texto: #1e293b;
-  --color-texto-suave: #64748b;
+  /* 4.98:1 sobre --color-fondo y 5.44:1 sobre blanco (WCAG AA pide 4.5:1 para texto pequeño). */
+  --color-texto-suave: #5b6b80;
 
   /* Prioridad: de neutro a rojo según urgencia. */
   --prioridad-baja-fondo: #f1f5f9;
@@ -391,6 +392,8 @@
 /* Solo se desplaza en horizontal; un alto con decimales mostraría una barra vertical innecesaria. */
 .table-responsive {
   overflow-y: hidden;
+  /* Contiene los elementos absolutos (como .visually-hidden): sin esto escapan del recorte y ensanchan la página. */
+  position: relative;
 }
 
 .tabla {
@@ -425,14 +428,58 @@
   overflow-wrap: anywhere;
 }
 
+/* ID dentro de la celda "Incidencia" cuando la columna ID está oculta (< 1400 px). */
+.celda-id-compacta {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-primario);
+  font-variant-numeric: tabular-nums;
+}
+
 .acciones {
   display: inline-flex;
   gap: 0.25rem;
 }
 
+/* Teléfonos: menos relleno, título sin ancho mínimo y botones apilados para que la tabla quepa sin desplazarse. */
+@media (max-width: 575.98px) {
+  .tabla td,
+  .tabla th {
+    padding: 0.6rem 0.5rem;
+  }
+
+  .celda-titulo {
+    min-width: 0;
+  }
+
+  .select-estado {
+    min-width: 7.25rem;
+  }
+
+  .acciones {
+    flex-direction: column;
+  }
+}
+
 /* El contenido principal recibe el foco al cambiar de vista; no necesita un recuadro visible. */
 #principal:focus {
   outline: none;
+}
+
+/* Mensaje de tabla vacía o sin coincidencias. */
+.estado-vacio {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: var(--color-texto-suave);
+}
+
+.estado-vacio-icono {
+  font-size: 2rem;
+  opacity: 0.5;
 }
 
 /* ===== Badges de prioridad y estado ===== */

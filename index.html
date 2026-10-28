@@ -198,13 +198,14 @@
               <caption class="visually-hidden">Incidencias registradas, de la más reciente a la más antigua</caption>
               <thead>
                 <tr>
-                  <th scope="col">ID</th>
+                  <!-- Bajo 1400 px, ID, responsable y fecha pasan a la celda "Incidencia"; bajo 768 px, también la prioridad. -->
+                  <th scope="col" class="d-none d-xxl-table-cell">ID</th>
                   <th scope="col">Incidencia</th>
-                  <th scope="col">Prioridad</th>
+                  <th scope="col" class="d-none d-md-table-cell">Prioridad</th>
                   <th scope="col">Estado</th>
-                  <th scope="col">Responsable</th>
-                  <th scope="col">Registro</th>
-                  <th scope="col" class="text-end">Acciones</th>
+                  <th scope="col" class="d-none d-xxl-table-cell">Responsable</th>
+                  <th scope="col" class="d-none d-xxl-table-cell">Registro</th>
+                  <th scope="col" class="text-end"><span class="visually-hidden">Acciones</span></th>
                 </tr>
               </thead>
               <tbody id="tabla-incidencias">
