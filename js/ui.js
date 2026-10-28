@@ -34,6 +34,9 @@ export const crearBadgePrioridad = (prioridad) =>
 export const crearBadgeEstado = (estado) =>
   crearElemento('span', { clase: `badge badge-estado-${CLASE_ESTADO[estado]}`, texto: estado });
 
+/** Clase de color de un estado para otros elementos (p. ej. el selector de la tabla): "estado-proceso". */
+export const claseEstado = (estado) => `estado-${CLASE_ESTADO[estado]}`;
+
 /** "2026-10-27T15:30:00.000Z" → "27 oct. 2026" (en la hora local del navegador). */
 export const formatearFecha = (iso) =>
   new Date(iso).toLocaleDateString(LOCALE, { day: '2-digit', month: 'short', year: 'numeric' });

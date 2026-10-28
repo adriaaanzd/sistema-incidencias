@@ -163,6 +163,36 @@
               </button>
             </div>
           </div>
+          <div class="filtros" role="search" aria-label="Buscar y filtrar incidencias">
+            <div class="row g-2">
+              <div class="col-12 col-lg-4">
+                <label for="filtro-texto" class="visually-hidden">Buscar por ID, título o responsable</label>
+                <div class="input-group">
+                  <span class="input-group-text"><i class="bi bi-search" aria-hidden="true"></i></span>
+                  <input type="search" id="filtro-texto" class="form-control" placeholder="Buscar por ID, título o responsable"
+                         maxlength="100" autocomplete="off">
+                </div>
+              </div>
+              <div class="col-6 col-md-3 col-lg-2">
+                <label for="filtro-prioridad" class="visually-hidden">Filtrar por prioridad</label>
+                <select id="filtro-prioridad" class="form-select"></select>
+              </div>
+              <div class="col-6 col-md-3 col-lg-2">
+                <label for="filtro-estado" class="visually-hidden">Filtrar por estado</label>
+                <select id="filtro-estado" class="form-select"></select>
+              </div>
+              <div class="col-6 col-md-3 col-lg-2">
+                <label for="filtro-categoria" class="visually-hidden">Filtrar por categoría</label>
+                <select id="filtro-categoria" class="form-select"></select>
+              </div>
+              <div class="col-6 col-md-3 col-lg-2">
+                <button type="button" class="btn btn-light w-100" id="btn-limpiar-filtros">
+                  <i class="bi bi-x-circle me-1" aria-hidden="true"></i>Limpiar filtros
+                </button>
+              </div>
+            </div>
+            <p class="resumen-filtros" id="resumen-filtros" aria-live="polite"></p>
+          </div>
           <div class="table-responsive">
             <table class="table tabla table-hover">
               <caption class="visually-hidden">Incidencias registradas, de la más reciente a la más antigua</caption>

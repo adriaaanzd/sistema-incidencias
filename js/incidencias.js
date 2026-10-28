@@ -121,6 +121,37 @@ export function actualizarIncidencia(id, datos) {
   return { incidencia: actualizada, cambio: true };
 }
 
+/**
+ * Cambia solo el estado (desde la tabla, sin abrir el formulario).
+ * @returns {{ incidencia: object, cambio: boolean }}
+ */
+export function cambiarEstado(id, estado) {
+  if (!ESTADOS.includes(estado)) throw new ErrorValidacion({ estado: 'Seleccione un estado.' });
+  const incidencias = leerParaModificar();
+  const indice = buscarIndice(incidencias, id);
+  const actual = incidencias[indice];
+  if (actual.estado === estado) return { incidencia: actual, cambio: false };
+
+  incidencias[indice] = { ...actual, estado, fechaActualizacion: new Date().toISOString() };
+  guardarIncidencias(incidencias);
+  return { incidencia: incidencias[indice], cambio: true };
+}
+
+// Sin tildes y en minúsculas: "ramirez" encuentra "Ramírez" y "critico" encuentra "crítico".
+const normalizar = (texto) => texto.normalize('NFD').replace(/\p{Diacritic}/gu, '').toLowerCase().trim();
+
+/**
+ * Filtra por texto (id, título o responsable) combinado con prioridad, estado y categoría.
+ * Un filtro vacío ('') no restringe nada.
+ */
+export function filtrarIncidencias(incidencias, { texto = '', prioridad = '', estado = '', categoria = '' } = {}) {
+  const buscado = normalizar(texto);
+  return incidencias.filter((i) => (!prioridad || i.prioridad === prioridad)
+    && (!estado || i.estado === estado)
+    && (!categoria || i.categoria === categoria)
+    && (!buscado || [i.id, i.titulo, i.responsable].some((campo) => normalizar(campo).includes(buscado))));
+}
+
 /** Elimina una incidencia. Su id no se reutiliza: el correlativo no retrocede. */
 export function eliminarIncidencia(id) {
   const incidencias = leerParaModificar();
