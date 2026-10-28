@@ -2,7 +2,6 @@
 
 Aplicación web para registrar, priorizar y dar seguimiento a incidencias de soporte técnico (hardware, software, red, accesos, correo). Funciona completamente en el navegador: **HTML, CSS y JavaScript vanilla** con módulos ES, sin frameworks, sin backend y sin herramientas de compilación. Los datos se guardan en `localStorage`.
 
-**Demo en vivo:** https://adriaaanzd.github.io/sistema-incidencias/
 
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
