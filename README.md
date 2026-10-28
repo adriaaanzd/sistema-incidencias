@@ -78,19 +78,6 @@ sistema-incidencias/
 
 El código está separado en tres capas: **datos** (`storage.js`), **lógica** (`incidencias.js`, sin DOM, probable desde la consola) y **vistas** (`dashboard.js`, `vista-incidencias.js`). Cada vez que se guardan datos se emite un evento propio (`incidencias:cambio`) y las vistas se redibujan solas.
 
-## Ejecución local
-
-Los módulos ES no cargan abriendo `index.html` con doble clic (`file://`): el navegador los bloquea por seguridad. Hace falta un servidor estático. Cualquiera de estas opciones sirve:
-
-- **VS Code + Live Server:** clic derecho en `index.html` → *Open with Live Server*.
-- **Python 3**, desde la carpeta del proyecto:
-  ```powershell
-  python -m http.server 5500 --bind 127.0.0.1
-  ```
-  Luego abre http://127.0.0.1:5500/
-
-No hay dependencias que instalar ni pasos de compilación.
-
 ## Decisiones técnicas
 
 - **Seguridad contra XSS.** Ningún dato del usuario se inserta con `innerHTML`, `insertAdjacentHTML` ni plantillas HTML. Todo el DOM dinámico se construye con `createElement` y `textContent`, así que un título como `<img src=x onerror=alert(1)>` se muestra como texto y nunca se ejecuta (ver la captura). Tampoco hay estilos ni scripts en línea, lo que permitiría activar una política de seguridad (CSP) estricta.
@@ -102,7 +89,6 @@ No hay dependencias que instalar ni pasos de compilación.
 - **Rutas relativas.** Todas las rutas son relativas (`js/app.js`, no `/js/app.js`) para que funcione en la subruta de GitHub Pages (`usuario.github.io/sistema-incidencias/`).
 
 **Limitación conocida:** al usar `localStorage`, los datos viven solo en el navegador donde se crearon. No se comparten entre dispositivos ni usuarios; para eso haría falta un backend.
-
 
 ## Autor
 
