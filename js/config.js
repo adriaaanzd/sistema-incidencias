@@ -24,3 +24,9 @@ export const CLAVES = Object.freeze({
 });
 
 export const PREFIJO_ID = 'INC';
+
+// Se emite en document cada vez que se guardan incidencias; las vistas lo escuchan para redibujarse.
+export const EVENTO_CAMBIO = 'incidencias:cambio';
+
+// Idioma y región para mostrar fechas.
+export const LOCALE = 'es-PE';

@@ -1,7 +1,7 @@
 // Capa de persistencia: único módulo que toca localStorage.
 // Las demás capas reciben y entregan arreglos de incidencias; no saben cómo se guardan.
 
-import { CATEGORIAS, CLAVES, ESTADOS, PREFIJO_ID, PRIORIDADES } from './config.js';
+import { CATEGORIAS, CLAVES, ESTADOS, EVENTO_CAMBIO, PREFIJO_ID, PRIORIDADES } from './config.js';
 import { crearDatosDemo } from './demo-data.js';
 
 const PATRON_ID = new RegExp(`^${PREFIJO_ID}-(\\d{4})-(\\d{4,})$`);
@@ -90,9 +90,14 @@ function escribir(clave, valor) {
   }
 }
 
-/** Guarda el arreglo completo de incidencias. Lanza ErrorAlmacenamiento si el navegador lo impide. */
+/**
+ * Guarda el arreglo completo de incidencias y avisa con EVENTO_CAMBIO.
+ * Lanza ErrorAlmacenamiento si el navegador lo impide.
+ */
 export function guardarIncidencias(incidencias) {
   escribir(CLAVES.incidencias, JSON.stringify(incidencias));
+  // Todo cambio pasa por aquí, así que es el único lugar que necesita avisar a las vistas.
+  document.dispatchEvent(new CustomEvent(EVENTO_CAMBIO));
 }
 
 // Si falta el correlativo (o lo alteraron a mano), se parte del mayor número usado en los datos guardados:

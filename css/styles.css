@@ -147,6 +147,19 @@
   }
 }
 
+/* ===== Aviso de datos dañados o almacenamiento bloqueado ===== */
+/* El atributo hidden lo oculta igual: Bootstrap define [hidden] { display: none !important; }. */
+.aviso-datos {
+  display: flex;
+  gap: 0.75rem;
+  align-items: flex-start;
+}
+
+.aviso-icono {
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
 /* ===== Barra superior ===== */
 .topbar {
   position: sticky;
@@ -268,8 +281,9 @@
   border-radius: var(--radio);
 }
 
+/* !important porque Chart.js escribe style="display: block" en el canvas y un estilo en línea gana a la hoja. */
 .grafico-pendiente canvas {
-  display: none;
+  display: none !important;
 }
 
 .grafico-aviso {
@@ -300,6 +314,11 @@
 
 .lista-item:last-child {
   border-bottom: 0;
+}
+
+.lista-vacia {
+  justify-content: center;
+  color: var(--color-texto-suave);
 }
 
 .lista-principal {
