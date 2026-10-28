@@ -1,0 +1,372 @@
+/* ===== Paleta y medidas ===== */
+:root {
+  --color-primario: #1d4ed8;
+  --color-primario-hover: #1e40af;
+  --color-primario-suave: #e8efff;
+  --color-fondo: #f3f5f9;
+  --color-superficie: #ffffff;
+  --color-borde: #e2e8f0;
+  --color-texto: #1e293b;
+  --color-texto-suave: #64748b;
+
+  /* Prioridad: de neutro a rojo según urgencia. */
+  --prioridad-baja-fondo: #f1f5f9;
+  --prioridad-baja-texto: #475569;
+  --prioridad-media-fondo: #e0f2fe;
+  --prioridad-media-texto: #0369a1;
+  --prioridad-alta-fondo: #ffedd5;
+  --prioridad-alta-texto: #c2410c;
+  --prioridad-critica-fondo: #fee2e2;
+  --prioridad-critica-texto: #b91c1c;
+
+  /* Estado: ámbar espera, azul trabajo, verde terminado. */
+  --estado-pendiente-fondo: #fef3c7;
+  --estado-pendiente-texto: #b45309;
+  --estado-proceso-fondo: #dbeafe;
+  --estado-proceso-texto: #1d4ed8;
+  --estado-resuelta-fondo: #dcfce7;
+  --estado-resuelta-texto: #15803d;
+
+  --sidebar-ancho: 250px;
+  --radio: 0.75rem;
+  --sombra: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.08);
+
+  /* Bootstrap lee estas variables en utilidades, enlaces y bordes. */
+  --bs-primary: var(--color-primario);
+  --bs-primary-rgb: 29, 78, 216;
+  --bs-link-color: var(--color-primario);
+  --bs-link-color-rgb: 29, 78, 216;
+  --bs-link-hover-color: var(--color-primario-hover);
+  --bs-link-hover-color-rgb: 30, 64, 175;
+  --bs-body-bg: var(--color-fondo);
+  --bs-body-color: var(--color-texto);
+  --bs-secondary-color: var(--color-texto-suave);
+  --bs-border-color: var(--color-borde);
+  --bs-body-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.btn-primary {
+  --bs-btn-bg: var(--color-primario);
+  --bs-btn-border-color: var(--color-primario);
+  --bs-btn-hover-bg: var(--color-primario-hover);
+  --bs-btn-hover-border-color: var(--color-primario-hover);
+  --bs-btn-active-bg: var(--color-primario-hover);
+  --bs-btn-active-border-color: var(--color-primario-hover);
+  --bs-btn-disabled-bg: var(--color-primario);
+  --bs-btn-disabled-border-color: var(--color-primario);
+}
+
+/* ===== Accesibilidad ===== */
+.saltar-contenido {
+  position: absolute;
+  left: 1rem;
+  top: -3rem;
+  z-index: 1100;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radio);
+  background: var(--color-primario);
+  color: #fff;
+}
+
+.saltar-contenido:focus {
+  top: 1rem;
+}
+
+/* ===== Barra lateral ===== */
+.sidebar {
+  /* Ancho del menú en móvil, un poco mayor para que la marca y la X quepan en una línea. */
+  --bs-offcanvas-width: 280px;
+  /* .offcanvas-lg fuerza fondo transparente en escritorio; este !important lo devuelve a blanco. */
+  background-color: var(--color-superficie) !important;
+  border-right: 1px solid var(--color-borde);
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+  color: var(--color-texto);
+}
+
+.marca-icono {
+  display: inline-grid;
+  place-items: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 0.6rem;
+  background: var(--color-primario);
+  color: #fff;
+}
+
+.nav-titulo {
+  margin: 1.5rem 0 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+}
+
+.sidebar .nav-link {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.6rem;
+  color: var(--color-texto-suave);
+  font-weight: 500;
+}
+
+.sidebar .nav-link .bi {
+  font-size: 1.15rem;
+}
+
+.sidebar .nav-link:hover {
+  background: var(--color-fondo);
+  color: var(--color-texto);
+}
+
+.sidebar .nav-link.active {
+  background: var(--color-primario-suave);
+  color: var(--color-primario);
+}
+
+@media (min-width: 992px) {
+  .sidebar {
+    position: fixed;
+    inset: 0 auto 0 0;
+    width: var(--sidebar-ancho);
+    overflow-y: auto;
+  }
+
+  .contenido {
+    margin-left: var(--sidebar-ancho);
+  }
+}
+
+/* ===== Barra superior ===== */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 1010;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 4rem;
+  padding: 0.75rem 1rem;
+  background: var(--color-superficie);
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.topbar-subtitulo {
+  font-size: 0.85rem;
+  color: var(--color-texto-suave);
+}
+
+@media (min-width: 768px) {
+  .topbar {
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+/* ===== Tarjetas ===== */
+.tarjeta {
+  background: var(--color-superficie);
+  border: 1px solid var(--color-borde);
+  border-radius: var(--radio);
+  box-shadow: var(--sombra);
+}
+
+.tarjeta-encabezado {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.tarjeta-encabezado h2 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.tarjeta-cuerpo {
+  padding: 1.25rem;
+}
+
+/* Tarjeta de indicador (KPI): icono a la izquierda, valor y etiqueta a la derecha. */
+.kpi {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.kpi-icono {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  font-size: 1.35rem;
+}
+
+.kpi-total {
+  background: var(--color-primario-suave);
+  color: var(--color-primario);
+}
+
+.kpi-pendiente {
+  background: var(--estado-pendiente-fondo);
+  color: var(--estado-pendiente-texto);
+}
+
+.kpi-proceso {
+  background: var(--estado-proceso-fondo);
+  color: var(--estado-proceso-texto);
+}
+
+.kpi-resuelta {
+  background: var(--estado-resuelta-fondo);
+  color: var(--estado-resuelta-texto);
+}
+
+.kpi-valor {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-etiqueta {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--color-texto-suave);
+}
+
+/* ===== Gráficos ===== */
+/* Chart.js necesita un contenedor con alto fijo cuando maintainAspectRatio es false. */
+.grafico-contenedor {
+  position: relative;
+  height: 280px;
+}
+
+/* Mientras no hay datos, el contenedor muestra un recuadro con el nombre del gráfico. */
+.grafico-pendiente {
+  display: grid;
+  place-items: center;
+  border: 2px dashed var(--color-borde);
+  border-radius: var(--radio);
+}
+
+.grafico-pendiente canvas {
+  display: none;
+}
+
+.grafico-aviso {
+  margin: 0;
+  color: var(--color-texto-suave);
+}
+
+.grafico-contenedor:not(.grafico-pendiente) .grafico-aviso {
+  display: none;
+}
+
+/* ===== Lista de últimas incidencias ===== */
+.lista-incidencias {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lista-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+  padding: 0.85rem 1.25rem;
+  border-bottom: 1px solid var(--color-borde);
+}
+
+.lista-item:last-child {
+  border-bottom: 0;
+}
+
+.lista-principal {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1 1 260px;
+}
+
+.lista-id {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-primario);
+  font-variant-numeric: tabular-nums;
+}
+
+.lista-titulo {
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+.lista-meta {
+  font-size: 0.8rem;
+  color: var(--color-texto-suave);
+}
+
+.lista-badges {
+  display: flex;
+  gap: 0.4rem;
+}
+
+/* ===== Badges de prioridad y estado ===== */
+.badge {
+  font-weight: 600;
+}
+
+.badge-prioridad-baja {
+  background: var(--prioridad-baja-fondo);
+  color: var(--prioridad-baja-texto);
+}
+
+.badge-prioridad-media {
+  background: var(--prioridad-media-fondo);
+  color: var(--prioridad-media-texto);
+}
+
+.badge-prioridad-alta {
+  background: var(--prioridad-alta-fondo);
+  color: var(--prioridad-alta-texto);
+}
+
+.badge-prioridad-critica {
+  background: var(--prioridad-critica-fondo);
+  color: var(--prioridad-critica-texto);
+}
+
+.badge-estado-pendiente {
+  background: var(--estado-pendiente-fondo);
+  color: var(--estado-pendiente-texto);
+}
+
+.badge-estado-proceso {
+  background: var(--estado-proceso-fondo);
+  color: var(--estado-proceso-texto);
+}
+
+.badge-estado-resuelta {
+  background: var(--estado-resuelta-fondo);
+  color: var(--estado-resuelta-texto);
+}
