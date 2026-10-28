@@ -1,0 +1,17 @@
+# Proyecto estático sin dependencias ni build: solo se excluyen archivos del sistema y del editor.
+
+# Sistema operativo
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editores
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+
+# Herramientas locales
+node_modules/
+*.log
+.lighthouseci/
