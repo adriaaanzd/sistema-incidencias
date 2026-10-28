@@ -350,6 +350,54 @@
   gap: 0.4rem;
 }
 
+/* ===== Tabla de incidencias ===== */
+/* Solo se desplaza en horizontal; un alto con decimales mostraría una barra vertical innecesaria. */
+.table-responsive {
+  overflow-y: hidden;
+}
+
+.tabla {
+  margin: 0;
+  --bs-table-bg: transparent;
+}
+
+.tabla thead th {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-texto-suave);
+  background: var(--color-fondo);
+  white-space: nowrap;
+}
+
+.tabla td,
+.tabla th {
+  padding: 0.75rem 1rem;
+  vertical-align: middle;
+}
+
+/* .tabla delante para ganarle a la regla de color de celdas de Bootstrap (.table > :not(caption) > * > *). */
+.tabla .celda-id {
+  color: var(--color-primario);
+  font-variant-numeric: tabular-nums;
+}
+
+.celda-titulo {
+  min-width: 14rem;
+  overflow-wrap: anywhere;
+}
+
+.acciones {
+  display: inline-flex;
+  gap: 0.25rem;
+}
+
+/* El contenido principal recibe el foco al cambiar de vista; no necesita un recuadro visible. */
+#principal:focus {
+  outline: none;
+}
+
 /* ===== Badges de prioridad y estado ===== */
 .badge {
   font-weight: 600;
