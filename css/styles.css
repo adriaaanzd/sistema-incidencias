@@ -1,14 +1,22 @@
-/* ===== Paleta y medidas ===== */
+/* ===== Paleta, tipografía y medidas =====
+   Identidad: consola de mesa de ayuda de TI. Azul tinta para la navegación, azul señal para las acciones,
+   papel frío de fondo. IBM Plex Sans en todo; IBM Plex Mono solo para los códigos INC-AAAA-NNNN. */
 :root {
-  --color-primario: #1d4ed8;
-  --color-primario-hover: #1e40af;
-  --color-primario-suave: #e8efff;
-  --color-fondo: #f3f5f9;
+  --color-tinta: #13254a;
+  --color-tinta-texto: #aebcd8;       /* 7.9:1 sobre la tinta */
+  --color-tinta-enlace: #8fb0ff;      /* 7.06:1 sobre la tinta */
+  --color-primario: #2453e6;          /* 6.08:1 con texto blanco y sobre blanco */
+  --color-primario-hover: #1b40b8;
+  --color-primario-suave: #e9effe;
+  --color-fondo: #f4f6fa;
   --color-superficie: #ffffff;
-  --color-borde: #e2e8f0;
-  --color-texto: #1e293b;
-  /* 4.98:1 sobre --color-fondo y 5.44:1 sobre blanco (WCAG AA pide 4.5:1 para texto pequeño). */
+  --color-borde: #dce2ec;
+  --color-texto: #172033;
+  /* 5.03:1 sobre --color-fondo y 5.44:1 sobre blanco (WCAG AA pide 4.5:1 para texto pequeño). */
   --color-texto-suave: #5b6b80;
+
+  --fuente-base: "IBM Plex Sans Variable", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --fuente-codigo: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
 
   /* Prioridad: de neutro a rojo según urgencia. */
   --prioridad-baja-fondo: #f1f5f9;
@@ -28,22 +36,33 @@
   --estado-resuelta-fondo: #dcfce7;
   --estado-resuelta-texto: #15803d;
 
-  --sidebar-ancho: 250px;
-  --radio: 0.75rem;
-  --sombra: 0 1px 2px rgba(15, 23, 42, 0.06), 0 1px 3px rgba(15, 23, 42, 0.08);
+  --sidebar-ancho: 256px;
+  /* Radios por jerarquía: paneles más redondeados que controles; los badges son píldoras. */
+  --radio: 0.875rem;
+  --radio-control: 0.5rem;
 
-  /* Bootstrap lee estas variables en utilidades, enlaces y bordes. */
+  /* Bootstrap lee estas variables en utilidades, enlaces, bordes y controles. */
   --bs-primary: var(--color-primario);
-  --bs-primary-rgb: 29, 78, 216;
+  --bs-primary-rgb: 36, 83, 230;
   --bs-link-color: var(--color-primario);
-  --bs-link-color-rgb: 29, 78, 216;
+  --bs-link-color-rgb: 36, 83, 230;
   --bs-link-hover-color: var(--color-primario-hover);
-  --bs-link-hover-color-rgb: 30, 64, 175;
+  --bs-link-hover-color-rgb: 27, 64, 184;
   --bs-body-bg: var(--color-fondo);
   --bs-body-color: var(--color-texto);
   --bs-secondary-color: var(--color-texto-suave);
   --bs-border-color: var(--color-borde);
-  --bs-body-font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --bs-border-radius: var(--radio-control);
+  --bs-body-font-family: var(--fuente-base);
+  --bs-body-font-size: 0.9375rem;
+  --bs-body-line-height: 1.55;
+}
+
+h1,
+h2,
+.h5,
+.h6 {
+  letter-spacing: -0.01em;
 }
 
 .btn-primary {
@@ -73,23 +92,32 @@
   top: 1rem;
 }
 
-/* ===== Barra lateral ===== */
+/* ===== Barra lateral (azul tinta) ===== */
 .sidebar {
   /* Ancho del menú en móvil, un poco mayor para que la marca y la X quepan en una línea. */
-  --bs-offcanvas-width: 280px;
-  /* .offcanvas-lg fuerza fondo transparente en escritorio; este !important lo devuelve a blanco. */
-  background-color: var(--color-superficie) !important;
-  border-right: 1px solid var(--color-borde);
+  --bs-offcanvas-width: 284px;
+  /* .offcanvas-lg fuerza fondo transparente en escritorio; este !important lo devuelve a la tinta. */
+  background-color: var(--color-tinta) !important;
+  color: var(--color-tinta-texto);
+}
+
+.sidebar .offcanvas-header {
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+/* El cuerpo ocupa todo el alto para que el bloque "Proyecto de portafolio" quede abajo. */
+.sidebar .offcanvas-body {
+  flex-grow: 1;
 }
 
 .marca {
   display: flex;
   align-items: center;
-  gap: 0.6rem;
-  font-weight: 700;
-  font-size: 1rem;
+  gap: 0.65rem;
+  font-weight: 600;
+  font-size: 1.0625rem;
   white-space: nowrap;
-  color: var(--color-texto);
+  color: #fff;
 }
 
 .marca-icono {
@@ -97,18 +125,13 @@
   place-items: center;
   width: 2.25rem;
   height: 2.25rem;
-  border-radius: 0.6rem;
+  border-radius: var(--radio-control);
   background: var(--color-primario);
   color: #fff;
 }
 
-.nav-titulo {
-  margin: 1.5rem 0 0.5rem 0.75rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-  color: var(--color-texto-suave);
+.sidebar .nav {
+  margin-top: 1.75rem;
 }
 
 .sidebar .nav-link {
@@ -116,9 +139,12 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.6rem 0.75rem;
-  border-radius: 0.6rem;
-  color: var(--color-texto-suave);
+  border-radius: var(--radio-control);
+  color: var(--color-tinta-texto);
   font-weight: 500;
+  /* Sin la transición de Bootstrap: al abrir la app en #incidencias, el resaltado salía del enlace
+     "Dashboard" (activo en el HTML inicial) en vez de aparecer directamente en la sección actual. */
+  transition: none;
 }
 
 .sidebar .nav-link .bi {
@@ -126,13 +152,51 @@
 }
 
 .sidebar .nav-link:hover {
-  background: var(--color-fondo);
-  color: var(--color-texto);
+  background: rgba(255, 255, 255, 0.07);
+  color: #fff;
 }
 
 .sidebar .nav-link.active {
-  background: var(--color-primario-suave);
-  color: var(--color-primario);
+  background: var(--color-primario);
+  color: #fff;
+}
+
+/* Sobre fondo oscuro, el anillo de foco de Bootstrap no se distingue. */
+.sidebar a:focus-visible,
+.sidebar button:focus-visible {
+  outline: 2px solid var(--color-tinta-enlace);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+/* Bloque que presenta la app como proyecto de portafolio. */
+.sidebar-acerca {
+  margin-top: auto;
+  padding: 1rem 0.75rem 0.25rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.sidebar-acerca-titulo {
+  margin: 0 0 0.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.sidebar-acerca a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  color: var(--color-tinta-enlace);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.sidebar-acerca a:hover {
+  text-decoration: underline;
 }
 
 @media (min-width: 992px) {
@@ -141,6 +205,10 @@
     inset: 0 auto 0 0;
     width: var(--sidebar-ancho);
     overflow-y: auto;
+  }
+
+  .sidebar .offcanvas-body {
+    min-height: 100%;
   }
 
   .contenido {
@@ -175,9 +243,19 @@
   border-bottom: 1px solid var(--color-borde);
 }
 
+.topbar h1 {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
 .topbar-subtitulo {
-  font-size: 0.85rem;
+  font-size: 0.8125rem;
   color: var(--color-texto-suave);
+}
+
+/* Enlace al código en la cabecera: solo en pantallas sin barra lateral fija. */
+.topbar-codigo {
+  margin-left: auto;
 }
 
 @media (min-width: 768px) {
@@ -187,11 +265,11 @@
 }
 
 /* ===== Tarjetas ===== */
+/* Paneles planos con borde: la jerarquía la marcan el espacio y la tipografía, no las sombras. */
 .tarjeta {
   background: var(--color-superficie);
   border: 1px solid var(--color-borde);
   border-radius: var(--radio);
-  box-shadow: var(--sombra);
 }
 
 .tarjeta-encabezado {
@@ -254,9 +332,10 @@
 
 .kpi-valor {
   margin: 0;
-  font-size: 1.75rem;
-  font-weight: 700;
-  line-height: 1.1;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
   font-variant-numeric: tabular-nums;
 }
 
@@ -311,6 +390,8 @@
   gap: 0.5rem 1rem;
   padding: 0.85rem 1.25rem;
   border-bottom: 1px solid var(--color-borde);
+  /* Franja de severidad: ver "Franja de prioridad" más abajo. */
+  box-shadow: inset 4px 0 0 var(--franja, transparent);
 }
 
 .lista-item:last-child {
@@ -330,10 +411,10 @@
 }
 
 .lista-id {
+  font-family: var(--fuente-codigo);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-primario);
-  font-variant-numeric: tabular-nums;
 }
 
 .lista-titulo {
@@ -402,10 +483,8 @@
 }
 
 .tabla thead th {
-  font-size: 0.75rem;
+  font-size: 0.8125rem;
   font-weight: 600;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
   color: var(--color-texto-suave);
   background: var(--color-fondo);
   white-space: nowrap;
@@ -419,8 +498,10 @@
 
 /* .tabla delante para ganarle a la regla de color de celdas de Bootstrap (.table > :not(caption) > * > *). */
 .tabla .celda-id {
+  font-family: var(--fuente-codigo);
+  font-size: 0.875rem;
+  font-weight: 500;
   color: var(--color-primario);
-  font-variant-numeric: tabular-nums;
 }
 
 .celda-titulo {
@@ -430,10 +511,33 @@
 
 /* ID dentro de la celda "Incidencia" cuando la columna ID está oculta (< 1400 px). */
 .celda-id-compacta {
+  font-family: var(--fuente-codigo);
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-primario);
-  font-variant-numeric: tabular-nums;
+}
+
+/* ===== Franja de prioridad =====
+   Como en los tableros de operaciones: una franja en el borde izquierdo de cada incidencia indica su
+   severidad, para recorrer la cola con la vista. Va en la primera celda visible de la fila. */
+.prioridad-baja { --franja: var(--prioridad-baja-texto); }
+.prioridad-media { --franja: var(--prioridad-media-texto); }
+.prioridad-alta { --franja: var(--prioridad-alta-texto); }
+.prioridad-critica { --franja: var(--prioridad-critica-texto); }
+
+/* Bootstrap pinta el fondo de .table-hover con un box-shadow en cada celda; se conserva junto a la franja. */
+.tabla tr > td:first-child,
+.tabla tr > .celda-titulo {
+  box-shadow:
+    inset 4px 0 0 var(--franja, transparent),
+    inset 0 0 0 9999px var(--bs-table-bg-state, var(--bs-table-bg-type, var(--bs-table-accent-bg)));
+}
+
+/* Bajo 1400 px la columna ID se oculta y la primera celda visible es la de la incidencia. */
+@media (min-width: 1400px) {
+  .tabla tr > .celda-titulo {
+    box-shadow: inset 0 0 0 9999px var(--bs-table-bg-state, var(--bs-table-bg-type, var(--bs-table-accent-bg)));
+  }
 }
 
 .acciones {
@@ -485,6 +589,8 @@
 /* ===== Badges de prioridad y estado ===== */
 .badge {
   font-weight: 600;
+  border-radius: 999px;
+  padding: 0.35em 0.7em;
 }
 
 .badge-prioridad-baja {

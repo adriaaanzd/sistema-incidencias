@@ -2,7 +2,7 @@
 // Recibe el arreglo de incidencias; no lee localStorage por su cuenta (eso lo hace app.js).
 
 import { ESTADOS, PRIORIDADES } from './config.js';
-import { crearBadgeEstado, crearBadgePrioridad, crearElemento, formatearFecha } from './ui.js';
+import { clasePrioridad, crearBadgeEstado, crearBadgePrioridad, crearElemento, formatearFecha } from './ui.js';
 
 const CANTIDAD_ULTIMAS = 5;
 
@@ -97,7 +97,7 @@ const configuracionEstado = (etiquetas, valores) => ({
 });
 
 function crearItemUltima(incidencia) {
-  return crearElemento('li', { clase: 'lista-item' },
+  return crearElemento('li', { clase: `lista-item ${clasePrioridad(incidencia.prioridad)}` },
     crearElemento('div', { clase: 'lista-principal' },
       crearElemento('span', { clase: 'lista-id', texto: incidencia.id }),
       crearElemento('span', { clase: 'lista-titulo', texto: incidencia.titulo }),

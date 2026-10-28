@@ -8,7 +8,7 @@ import {
   obtenerIncidencia, sanitizar, validar,
 } from './incidencias.js';
 import {
-  claseEstado, confirmar, crearBadgePrioridad, crearElemento, crearIcono, formatearFecha, formatearFechaHora, mostrarToast,
+  claseEstado, clasePrioridad, confirmar, crearBadgePrioridad, crearElemento, crearIcono, formatearFecha, formatearFechaHora, mostrarToast,
 } from './ui.js';
 
 const CAMPOS = ['titulo', 'descripcion', 'categoria', 'prioridad', 'estado', 'responsable'];
@@ -73,7 +73,7 @@ function crearCeldaIncidencia(incidencia) {
 }
 
 function crearFila(incidencia) {
-  return crearElemento('tr', {},
+  return crearElemento('tr', { clase: clasePrioridad(incidencia.prioridad) },
     crearElemento('td', { clase: 'text-nowrap fw-medium celda-id d-none d-xxl-table-cell', texto: incidencia.id }),
     crearCeldaIncidencia(incidencia),
     crearElemento('td', { clase: 'd-none d-md-table-cell' }, crearBadgePrioridad(incidencia.prioridad)),

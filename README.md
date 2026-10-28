@@ -103,12 +103,6 @@ No hay dependencias que instalar ni pasos de compilación.
 
 **Limitación conocida:** al usar `localStorage`, los datos viven solo en el navegador donde se crearon. No se comparten entre dispositivos ni usuarios; para eso haría falta un backend.
 
-## Publicar en GitHub Pages
-
-1. En el repositorio de GitHub: **Settings → Pages**.
-2. En **Build and deployment → Source**, elige **Deploy from a branch**.
-3. En **Branch**, elige **`main`** y la carpeta **`/ (root)`**, y pulsa **Save**.
-4. En uno o dos minutos el sitio queda disponible en https://adriaaanzd.github.io/sistema-incidencias/
 
 ## Autor
 

@@ -10,6 +10,11 @@
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
         integrity="sha384-XGjxtQfXaH2tnPFa9x+ruJTuLE3Aa6LhHSWRr1XeTyhezb4abCG4ccI5AkVDxqC+" crossorigin="anonymous">
+  <!-- IBM Plex Sans (variable, 100–700) para todo el texto; IBM Plex Mono solo para los códigos de incidencia. -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/ibm-plex-sans@5.3.0/index.css"
+        integrity="sha384-p+nB7oJHBnqNkZKvfMBDSTY3erZR1x7nsRQQAlmDX1yTR4zjcXDyFniQ4fne3bBi" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/ibm-plex-mono@5.3.0/500.css"
+        integrity="sha384-Kc76rmz8/sN1crakstIAL9hO3G6GlkS7LXZxYz6aM3HgNHNuukjqpQ0xmqtD2X1B" crossorigin="anonymous">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
@@ -22,14 +27,13 @@
         <span class="marca-icono"><i class="bi bi-headset" aria-hidden="true"></i></span>
         Incidencias TI
       </span>
-      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Cerrar menú"></button>
+      <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" data-bs-target="#sidebar" aria-label="Cerrar menú"></button>
     </div>
     <div class="offcanvas-body flex-column p-3">
       <span class="marca d-none d-lg-flex px-2 py-1">
         <span class="marca-icono"><i class="bi bi-headset" aria-hidden="true"></i></span>
         Incidencias TI
       </span>
-      <p class="nav-titulo">Menú</p>
       <nav class="nav flex-column gap-1" aria-label="Secciones">
         <a class="nav-link active" href="#dashboard" data-vista="dashboard" aria-current="page">
           <i class="bi bi-speedometer2" aria-hidden="true"></i>Dashboard
@@ -38,6 +42,15 @@
           <i class="bi bi-ticket-detailed" aria-hidden="true"></i>Incidencias
         </a>
       </nav>
+
+      <section class="sidebar-acerca" aria-labelledby="acerca-titulo">
+        <h2 class="sidebar-acerca-titulo" id="acerca-titulo">Proyecto de portafolio</h2>
+        <p class="mb-0">Demo con datos de ejemplo. Lo que registres se guarda solo en este navegador.</p>
+        <a href="https://github.com/adriaaanzd/sistema-incidencias" target="_blank" rel="noopener">
+          <i class="bi bi-github" aria-hidden="true"></i>Ver el código en GitHub
+          <span class="visually-hidden">(se abre en otra pestaña)</span>
+        </a>
+      </section>
     </div>
   </aside>
 
@@ -51,6 +64,11 @@
         <h1 class="h5 mb-0" id="titulo-vista">Dashboard</h1>
         <p class="topbar-subtitulo mb-0" id="subtitulo-vista">Resumen general de incidencias</p>
       </div>
+      <!-- En escritorio el enlace al código está en la barra lateral; aquí solo aparece cuando esta se oculta. -->
+      <a class="btn btn-light topbar-codigo d-lg-none" href="https://github.com/adriaaanzd/sistema-incidencias"
+         target="_blank" rel="noopener" aria-label="Ver el código en GitHub (se abre en otra pestaña)">
+        <i class="bi bi-github fs-5" aria-hidden="true"></i>
+      </a>
     </header>
 
     <main id="principal" class="p-3 p-md-4" tabindex="-1">

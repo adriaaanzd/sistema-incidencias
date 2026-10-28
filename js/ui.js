@@ -37,6 +37,9 @@ export const crearBadgeEstado = (estado) =>
 /** Clase de color de un estado para otros elementos (p. ej. el selector de la tabla): "estado-proceso". */
 export const claseEstado = (estado) => `estado-${CLASE_ESTADO[estado]}`;
 
+/** Clase de la franja de severidad de una fila o elemento de lista: "prioridad-critica". */
+export const clasePrioridad = (prioridad) => `prioridad-${CLASE_PRIORIDAD[prioridad]}`;
+
 /** "2026-10-27T15:30:00.000Z" → "27 oct. 2026" (en la hora local del navegador). */
 export const formatearFecha = (iso) =>
   new Date(iso).toLocaleDateString(LOCALE, { day: '2-digit', month: 'short', year: 'numeric' });
